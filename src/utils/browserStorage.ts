@@ -1,10 +1,8 @@
 class BrowserStorage {
   private readonly storage: Storage
-  public readonly length: number
 
   constructor(storage: Storage) {
     this.storage = storage
-    this.length = storage.length
   }
 
   set(key: string, value: unknown) {
@@ -48,6 +46,10 @@ class BrowserStorage {
 
   getKey(index: number): string | null {
     return this.storage.key(index)
+  }
+
+  get length(): number {
+    return this.storage.length
   }
 }
 

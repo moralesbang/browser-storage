@@ -35,4 +35,5 @@ test('get item', () => {
   expect(LocalStorage.get<number>('3rd')).toBe(123)
   expect(LocalStorage.get<boolean>('4th')).toBe(false)
   expect(LocalStorage.get<boolean>('5th')).toBe('["bar"')
+  expect(LocalStorage.length).toBe(5)
 })
