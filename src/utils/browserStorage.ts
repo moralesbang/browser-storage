@@ -9,7 +9,7 @@ class BrowserStorage {
     switch (typeof value) {
       case 'function':
         throw new TypeError(
-          `Values of type function cannot be stored! Try to store an string identifier instead.`
+          'Values of type function cannot be stored! Try to store an string identifier instead.'
         )
       case 'string':
         this.storage.setItem(key, value)
