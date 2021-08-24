@@ -1,28 +1,26 @@
 class BrowserStorage {
   private readonly storage: Storage
 
-  constructor(storage: Storage) {
+  constructor(storage: Storage = window.localStorage) {
     this.storage = storage
   }
 
-  set(key: string, value: unknown) {
-    const valueType = typeof value
-    let nextValue
-
-    switch (valueType) {
-      case 'object':
-        nextValue = JSON.stringify(value)
-        break
+  set(key: string, value: string | number | boolean | object | undefined) {
+    switch (typeof value) {
       case 'function':
-        throw new TypeError('Functions should not be save in browser storage')
+        throw new TypeError(
+          `Values of type function cannot be stored! Try to store an string identifier instead.`
+        )
+      case 'string':
+        this.storage.setItem(key, value)
+        break
       default:
-        nextValue = String(value)
+        this.storage.setItem(key, JSON.stringify(value))
+        break
     }
-
-    this.storage.setItem(key, nextValue)
   }
 
-  get<T = string>(key: string): T | null {
+  get<T extends unknown>(key: string): T | null {
     const item = this.storage.getItem(key)
 
     if (item) {
@@ -53,5 +51,5 @@ class BrowserStorage {
   }
 }
 
-export const LocalStorage = new BrowserStorage(window.localStorage)
+export const LocalStorage = new BrowserStorage()
 export const SessionStorage = new BrowserStorage(window.sessionStorage)

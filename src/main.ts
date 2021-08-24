@@ -2,8 +2,6 @@ import './style.css'
 import {LocalStorage} from './utils/browserStorage'
 
 LocalStorage.set('data', '["bar"')
-const name = LocalStorage.get('data')
-console.log('$', typeof name)
 
 const app = document.querySelector<HTMLDivElement>('#app')!
 
